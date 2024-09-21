@@ -1,34 +1,45 @@
-import { Switch, Route } from 'wouter';
-
-import { Dashboard } from './Components/Organisms/Dashboard';
-import { TopBar } from './Components/Molecules/TopBar';
-import { ServerList } from './Components/Molecules/ServerList';
-import { Notes } from './Components/Molecules/Notes';
-import { NetworkStats } from './Components/Molecules/NetworkStats';
-import { Drawer } from './Components/Organisms/Drawer';
+// import { ServerList } from './Components/Molecules/ServerList';
 
 import './App.css';
+import { Navbar } from './Components/Molecules/Navbar';
+import { Sidebar } from './Components/Molecules/Sidebar';
+import { ServiceCard } from './Components/Molecules/ServiceCard';
+
+const serversMock = [
+  {
+    name: 'OpnSense One',
+    icon: 'Server' as const,
+    online: true,
+    link: 'https://opnsense.com',
+  },
+  {
+    name: 'OpnSense Two',
+    icon: 'Server' as const,
+    online: false,
+    link: 'https://opnsense.com',
+  },
+  {
+    name: 'Alarm',
+    icon: 'AlarmClock' as const,
+    online: true,
+    link: 'https://opnsense.com',
+  },
+];
 
 function App() {
   return (
-    <div className="App container mx-auto">
-      <Drawer>
-        <Switch>
-          <Route path="/" component={Dashboard} />
-          <Route path="/directory" component={ServerList} />
-          <Route path="/notes" component={Notes} />
-          <Route path="/stats" component={NetworkStats} />
-          <Route path="/network" component={TopBar} />
-          <Route
-            path="/settings"
-            component={() => (
-              <div className="w-full min-w-full">
-                <h3>Settings</h3>
-              </div>
-            )}
-          />
-        </Switch>
-      </Drawer>
+    <div className="flex flex-col h-full container mx-auto bg-main font-jetbrain">
+      <Navbar />
+      <div className="flex h-full bg-dark">
+        <Sidebar className="hidden sm:block h-full " />
+        <div className="flex flex-wrap h-min w-auto gap-4 p-4">
+          {serversMock.map((server) => (
+            <ServiceCard {...server} key={server.name} />
+          ))}
+          <ServiceCard addNew />
+          {/* <ServerList /> */}
+        </div>
+      </div>
     </div>
   );
 }

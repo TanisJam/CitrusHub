@@ -4,7 +4,7 @@ import { CogIcon, ChartPieIcon, NotepadText, BookUser } from 'lucide-react';
 
 export default function Sidebar({ className }: { className?: string }) {
   return (
-    <aside className={`w-64 bg-gray-800 p-4 ${className}`}>
+    <aside className={`w-64 bg-dark-blue h-full p-4 ${className}`}>
       <nav>
         {[
           { name: 'Directory', icon: BookUser, href: '/directory' },
